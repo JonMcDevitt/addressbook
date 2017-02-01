@@ -3,3 +3,11 @@ install:
 - mvn install
 jdk:
 - oraclejdk8
+deploy:
+  provider: heroku
+  api_key:
+    secure: FE3iTRnRKjvlNsi1ayVRrKhU6mvaYZHMsd9wxj/qjL/Y/KDKHjXD8IhwtSA4SOhs2Kri9gnUjZur5BV/2WC8Uzo5iCLUVyWEKiQgiiDhkK93s5NdcuVgozHWVFfJ2+xBEqGoBGFNaLf8i8T69Aj6vKl2va1Jhjy5izzabNvCEeJ5vOPIO1CbJ/nWH8tf/e+wph6a+a7i4wj3F3C0SDd2lhwP1Ids4pF6tiktz+ZcD6OPQC4IrnpedWlS4iIX4iqAML7Xay7UxlVqEIX5Ki5Q2LWSs1YHRRcImDljAlBzPX7q9qeOnbzmALNWJOqBGD6zU5muXpstVv0PdUe2q72PJWPNn2s+WSrsSXdD65kH7XwZ9ubv2STmspPIXsVeMtfb+YrlkI8nvxHfBWxEovxhN5LvrUiecOLYcEG8KB/graXUiiXQ9akKCk+idr0DlEmuGB4nRFY2nKZPNi0L7Tr5KmLXWMtS2CYJHp5CbOo6y8vlo2mOtkZmazufvt4ho+0bCIWJzbk4F9ppyL4hdPAeO3ofTMk/cWWdu2xkuuURsmP2EJUXKnDe7LKUzRB7lY8vq3rEnQV4fE2c9xjNz2tXy3ANa9smPbcQqIHSm1YjrIJ1BJtJ7IDkkKy+9Gfnl/TauW75WksihbAlG8RvEuLgvXIGjZR9GwRpA6qpS2oB6bo=
+  app: jmcdevitt-addressbook
+  on:
+    repo: JonMcDevitt/addressbook
+    branch: todo_tasks
