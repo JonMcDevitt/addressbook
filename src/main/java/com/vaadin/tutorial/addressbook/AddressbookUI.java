@@ -68,6 +68,8 @@ public class AddressbookUI extends UI {
          * Receive user interaction events on the server-side. This allows you
          * to synchronously handle those events. Vaadin automatically sends only
          * the needed changes to the web page without loading a new page.
+         *
+         * Aesthetic change to push
          */
         newContact.addClickListener(e -> contactForm.edit(new Contact()));
 
