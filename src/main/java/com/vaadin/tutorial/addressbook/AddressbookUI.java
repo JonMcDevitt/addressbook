@@ -8,8 +8,8 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.tutorial.addressbook.backend.Contact;
-import com.vaadin.tutorial.addressbook.backend.ContactService;
+import com.vaadin.tutorial.addressbook.backend.TodoTask;
+import com.vaadin.tutorial.addressbook.backend.TodoTaskService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
@@ -37,16 +37,16 @@ public class AddressbookUI extends UI {
      * vaadin.com/directory.
      */
     TextField filter = new TextField();
-    Grid contactList = new Grid();
-    Button newContact = new Button("New contact");
+    Grid taskList = new Grid();
+    Button newTask = new Button("New Task");
 
-    // ContactForm is an example of a custom component class
-    ContactForm contactForm = new ContactForm();
+    // TodoTaskForm is an example of a custom component class
+    TodoTaskForm todoTaskForm = new TodoTaskForm();
 
-    // ContactService is a in-memory mock DAO that mimics
+    // TodoTaskService is a in-memory mock DAO that mimics
     // a real-world datasource. Typically implemented for
     // example as EJB or Spring Data based service.
-    ContactService service = ContactService.createDemoService();
+    TodoTaskService service = TodoTaskService.createDemoService();
 
     /*
      * The "Main method".
@@ -71,21 +71,19 @@ public class AddressbookUI extends UI {
          *
          * Aesthetic change to push
          */
-        newContact.addClickListener(e -> contactForm.edit(new Contact()));
+        newTask.addClickListener(e -> todoTaskForm.edit(new TodoTask()));
 
         filter.setInputPrompt("Filter contacts...");
-        filter.addTextChangeListener(e -> refreshContacts(e.getText()));
+        filter.addTextChangeListener(e -> refreshTasks(e.getText()));
 
-        contactList
-                .setContainerDataSource(new BeanItemContainer<>(Contact.class));
-        contactList.setColumnOrder("firstName", "lastName", "email");
-        contactList.removeColumn("id");
-        contactList.removeColumn("birthDate");
-        contactList.removeColumn("phone");
-        contactList.setSelectionMode(Grid.SelectionMode.SINGLE);
-        contactList.addSelectionListener(
-                e -> contactForm.edit((Contact) contactList.getSelectedRow()));
-        refreshContacts();
+        taskList
+                .setContainerDataSource(new BeanItemContainer<>(TodoTask.class));
+        taskList.setColumnOrder("subject", "date", "taskNotes");
+        taskList.removeColumn("id");
+        taskList.setSelectionMode(Grid.SelectionMode.SINGLE);
+        taskList.addSelectionListener(
+                e -> todoTaskForm.edit((TodoTask) taskList.getSelectedRow()));
+        refreshTasks();
     }
 
     /*
@@ -100,17 +98,17 @@ public class AddressbookUI extends UI {
      * choose to setup layout declaratively with Vaadin Designer, CSS and HTML.
      */
     private void buildLayout() {
-        HorizontalLayout actions = new HorizontalLayout(filter, newContact);
+        HorizontalLayout actions = new HorizontalLayout(filter, newTask);
         actions.setWidth("100%");
         filter.setWidth("100%");
         actions.setExpandRatio(filter, 1);
 
-        VerticalLayout left = new VerticalLayout(actions, contactList);
+        VerticalLayout left = new VerticalLayout(actions, taskList);
         left.setSizeFull();
-        contactList.setSizeFull();
-        left.setExpandRatio(contactList, 1);
+        taskList.setSizeFull();
+        left.setExpandRatio(taskList, 1);
 
-        HorizontalLayout mainLayout = new HorizontalLayout(left, contactForm);
+        HorizontalLayout mainLayout = new HorizontalLayout(left, todoTaskForm);
         mainLayout.setSizeFull();
         mainLayout.setExpandRatio(left, 1);
 
@@ -126,14 +124,14 @@ public class AddressbookUI extends UI {
      * your code into classes to easier maintenance. With Vaadin you can follow
      * MVC, MVP or any other design pattern you choose.
      */
-    void refreshContacts() {
-        refreshContacts(filter.getValue());
+    void refreshTasks() {
+        refreshTasks(filter.getValue());
     }
 
-    private void refreshContacts(String stringFilter) {
-        contactList.setContainerDataSource(new BeanItemContainer<>(
-                Contact.class, service.findAll(stringFilter)));
-        contactForm.setVisible(false);
+    private void refreshTasks(String stringFilter) {
+        taskList.setContainerDataSource(new BeanItemContainer<>(
+                TodoTask.class, service.findAll(stringFilter)));
+        todoTaskForm.setVisible(false);
     }
 
     /*
