@@ -93,8 +93,11 @@ public class TodoTask implements Serializable, Cloneable {
     @Override
     public String toString() {
         return  "TodoTask : {\n" +
+                "\tfirstName : " + firstName +
+                "\tlastName : " + lastName +
                 "\tid : " + id +
                 "\n\tstartDate : " + startDate +
+                "\n\tendDate : " + endDate +
                 "\n\tsubject : " + subject +
                 "\n\n\ttaskNotes : \n\t\t" + taskNotes +
                 "\n}";

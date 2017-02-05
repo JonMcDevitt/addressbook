@@ -6,6 +6,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.data.HasValue;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.tutorial.addressbook.backend.TodoTask;
@@ -16,7 +17,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.v7.data.util.BeanItemContainer;
 import com.vaadin.v7.ui.Grid;
-import com.vaadin.v7.ui.TextField;
+import com.vaadin.ui.TextField;
 
 /* User Interface written in Java.
  *
@@ -73,8 +74,10 @@ public class AddressbookUI extends UI {
          */
         newTask.addClickListener(e -> todoTaskForm.edit(new TodoTask()));
 
-        filter.setInputPrompt("Filter contacts...");
-        filter.addTextChangeListener(e -> refreshTasks(e.getText()));
+        filter.setPlaceholder("Filter contacts...");
+        filter.addValueChangeListener((HasValue.ValueChangeListener<? super String>) valueChangeEvent -> {
+            refreshTasks(valueChangeEvent.getValue());
+        });
 
         taskList.setContainerDataSource(new BeanItemContainer<>(TodoTask.class));
         taskList.setColumnOrder("firstName", "lastName", "taskNotes", "startDate", "endDate");
