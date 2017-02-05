@@ -11,7 +11,8 @@ import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.v7.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.v7.data.fieldgroup.FieldGroup;
 import com.vaadin.v7.ui.DateField;
-import com.vaadin.v7.ui.TextField;
+import com.vaadin.v7.ui.TextArea;
+import com.vaadin.ui.TextField;
 
 /* Create custom UI Components.
  *
@@ -23,20 +24,20 @@ import com.vaadin.v7.ui.TextField;
  */
 public class TodoTaskForm extends FormLayout {
 
-    Button save = new Button("Save", this::save);
-    Button cancel = new Button("Cancel", this::cancel);
-    Button remove = new Button("Remove", this::remove);
-    TextField subject = new TextField("Subject");
-    TextField taskNotes = new TextField("Notes");
-    DateField startDate = new DateField("Start Date");
-    DateField endDate = new DateField("Expected End Date");
+    private Button save = new Button("Save", this::save);
+    private Button cancel = new Button("Cancel", this::cancel);
+    private Button remove = new Button("Remove", this::remove);
+    private TextField subject = new TextField("Subject");
+    private TextArea taskNotes = new TextArea("Notes");
+    private DateField startDate = new DateField("Start Date");
+    private DateField endDate = new DateField("Expected End Date");
 
-    TodoTask todoTask;
+    private TodoTask todoTask;
 
     // Easily bind forms to beans and manage validation and buffering
-    BeanFieldGroup<TodoTask> formFieldBindings;
+    private BeanFieldGroup<TodoTask> formFieldBindings;
 
-    public TodoTaskForm() {
+    TodoTaskForm() {
         configureComponents();
         buildLayout();
     }
@@ -74,7 +75,7 @@ public class TodoTaskForm extends FormLayout {
      * classes and receive to various Vaadin component events, like button
      * clicks. Or keep it simple and compact with Lambda expressions.
      */
-    public void save(Button.ClickEvent event) {
+    private void save(Button.ClickEvent event) {
         try {
             // Commit the fields from UI to DAO
             formFieldBindings.commit();
@@ -90,13 +91,13 @@ public class TodoTaskForm extends FormLayout {
         }
     }
 
-    public void cancel(Button.ClickEvent event) {
+    private void cancel(Button.ClickEvent event) {
         // Place to call business logic.
         Notification.show("Cancelled", Type.TRAY_NOTIFICATION);
         getUI().taskList.select(null);
     }
 
-    public void remove(Button.ClickEvent event) {
+    private void remove(Button.ClickEvent event) {
         getUI().service.delete(todoTask);
         String msg = String.format("Removed task '%s'", todoTask.getSubject());
         Notification.show(msg, Type.TRAY_NOTIFICATION);

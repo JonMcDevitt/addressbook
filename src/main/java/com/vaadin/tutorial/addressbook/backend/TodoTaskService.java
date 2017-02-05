@@ -67,7 +67,7 @@ public class TodoTaskService {
     private long nextId = 0;
 
     public synchronized List<TodoTask> findAll(String stringFilter) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<TodoTask> arrayList = new ArrayList<>();
         for (TodoTask todoTask : tasks.values()) {
             try {
                 boolean passesFilter = (stringFilter == null || stringFilter.isEmpty())
