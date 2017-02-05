@@ -74,7 +74,7 @@ public class AddressbookUI extends UI {
          */
         newTask.addClickListener(e -> todoTaskForm.edit(new TodoTask()));
 
-        filter.setPlaceholder("Filter contacts...");
+        filter.setPlaceholder("Filter tasks...");
         /** Travis seems to be having issues with this lambda.  */
         filter.addValueChangeListener((HasValue.ValueChangeListener<? super String>) valueChangeEvent -> refreshTasks(valueChangeEvent.getValue()));
 
