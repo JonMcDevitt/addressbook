@@ -26,7 +26,7 @@ import com.vaadin.ui.TextField;
  * the same instance, add @PreserveOnRefresh.
  */
 @Title("Addressbook")
-@Theme("valo")
+@Theme("liferay")
 @Widgetset("com.vaadin.v7.Vaadin7WidgetSet")
 public class AddressbookUI extends UI {
 
